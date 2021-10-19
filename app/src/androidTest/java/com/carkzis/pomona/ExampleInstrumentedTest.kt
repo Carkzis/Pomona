@@ -1,4 +1,4 @@
-package com.example.pomona
+package com.carkzis.pomona
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

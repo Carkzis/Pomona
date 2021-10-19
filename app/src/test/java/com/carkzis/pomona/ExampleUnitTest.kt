@@ -1,4 +1,4 @@
-package com.example.pomona
+package com.carkzis.pomona
 
 import org.junit.Test
 
