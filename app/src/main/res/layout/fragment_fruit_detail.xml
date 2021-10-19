@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".FruitDetailFragment">
+
+    <data>
+        <import type="android.view.View" />
+        <import type="androidx.core.content.ContextCompat" />
+        <variable
+            name="fruitDetailViewModel"
+            type="com.carkzis.pomona.FruitDetailViewModel" />
+    </data>
+
+</layout>
