@@ -24,7 +24,7 @@ object DatabaseModule {
         return Room.databaseBuilder(
             context,
             PomonaDatabase::class.java,
-            "fruit",
+            "fruit.db",
         ).fallbackToDestructiveMigration().build()
     }
 
