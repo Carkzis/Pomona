@@ -1,4 +1,4 @@
-package com.carkzis.pomona
+package com.carkzis.pomona.ui.detail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.carkzis.pomona.R
 import com.carkzis.pomona.databinding.FragmentFruitDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 

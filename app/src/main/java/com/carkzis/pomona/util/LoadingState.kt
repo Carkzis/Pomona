@@ -1,4 +1,4 @@
-package com.carkzis.pomona
+package com.carkzis.pomona.util
 
 import java.lang.Exception
 

@@ -1,7 +1,8 @@
-package com.carkzis.pomona
+package com.carkzis.pomona.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.carkzis.pomona.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

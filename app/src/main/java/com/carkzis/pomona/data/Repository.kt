@@ -1,5 +1,6 @@
-package com.carkzis.pomona
+package com.carkzis.pomona.data
 
+import com.carkzis.pomona.data.local.DatabaseFruit
 import kotlinx.coroutines.flow.Flow
 
 interface Repository {

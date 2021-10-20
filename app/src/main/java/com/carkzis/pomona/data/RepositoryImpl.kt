@@ -1,5 +1,7 @@
-package com.carkzis.pomona
+package com.carkzis.pomona.data
 
+import com.carkzis.pomona.data.local.DatabaseFruit
+import com.carkzis.pomona.data.local.PomonaDatabase
 import kotlinx.coroutines.flow.Flow
 
 class RepositoryImpl (private val database: PomonaDatabase): Repository {

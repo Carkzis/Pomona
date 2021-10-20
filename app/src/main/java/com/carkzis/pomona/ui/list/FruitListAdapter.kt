@@ -1,6 +1,5 @@
-package com.carkzis.pomona
+package com.carkzis.pomona.ui
 
-import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -14,11 +13,11 @@ class FruitListAdapter(private val onClickListener: OnClickListener) :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): FruitListAdapter.FruitListViewHolder {
-        return FruitListAdapter.FruitListViewHolder.from(parent)
+    ): FruitListViewHolder {
+        return FruitListViewHolder.from(parent)
     }
 
-    override fun onBindViewHolder(holder: FruitListAdapter.FruitListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FruitListViewHolder, position: Int) {
         val item = getItem(position)
         holder.itemView.setOnClickListener {
             onClickListener.onClick(item)

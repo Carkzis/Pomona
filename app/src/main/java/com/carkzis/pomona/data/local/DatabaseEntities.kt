@@ -1,4 +1,4 @@
-package com.carkzis.pomona
+package com.carkzis.pomona.data.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

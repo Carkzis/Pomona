@@ -8,7 +8,7 @@
         <import type="androidx.core.content.ContextCompat" />
         <variable
             name="domainFruit"
-            type="com.carkzis.pomona.DomainFruit" />
+            type="com.carkzis.pomona.ui.DomainFruit" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

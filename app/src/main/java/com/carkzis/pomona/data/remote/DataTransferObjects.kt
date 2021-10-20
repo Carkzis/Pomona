@@ -1,4 +1,4 @@
-package com.carkzis.pomona
+package com.carkzis.pomona.data.remote
 
 import com.squareup.moshi.JsonClass
 

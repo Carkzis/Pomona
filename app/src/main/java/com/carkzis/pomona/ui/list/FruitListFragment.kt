@@ -1,4 +1,4 @@
-package com.carkzis.pomona
+package com.carkzis.pomona.ui.list
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.carkzis.pomona.databinding.FragmentFruitListBinding
+import com.carkzis.pomona.ui.FruitListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -1,7 +1,8 @@
-package com.carkzis.pomona
+package com.carkzis.pomona.data.local
 
 import androidx.room.Dao
 import androidx.room.Query
+import com.carkzis.pomona.data.local.DatabaseFruit
 import kotlinx.coroutines.flow.Flow
 
 @Dao

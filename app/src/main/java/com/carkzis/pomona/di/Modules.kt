@@ -1,7 +1,11 @@
-package com.carkzis.pomona
+package com.carkzis.pomona.di
 
 import android.content.Context
 import androidx.room.Room
+import com.carkzis.pomona.data.local.FruitDao
+import com.carkzis.pomona.data.local.PomonaDatabase
+import com.carkzis.pomona.data.Repository
+import com.carkzis.pomona.data.RepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

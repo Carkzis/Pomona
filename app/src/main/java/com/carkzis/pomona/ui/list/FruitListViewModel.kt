@@ -1,9 +1,9 @@
-package com.carkzis.pomona
+package com.carkzis.pomona.ui.list
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class FruitDetailViewModel @Inject constructor() : ViewModel() {
+class FruitListViewModel @Inject constructor() : ViewModel() {
 }
