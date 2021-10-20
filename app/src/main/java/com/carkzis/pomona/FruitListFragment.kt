@@ -16,6 +16,8 @@ class FruitListFragment : Fragment() {
 
     private lateinit var viewDataBinding: FragmentFruitListBinding
 
+    private lateinit var fruitListAdapter: FruitListAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,8 +27,19 @@ class FruitListFragment : Fragment() {
                 fruitListViewModel = viewModel
                 lifecycleOwner = viewLifecycleOwner
             }
+
+        fruitListAdapter = setUpFruitListAdapter()
+        viewDataBinding.fruitListRecyclerview.adapter = fruitListAdapter
+
+
         // Inflate the layout for this fragment.
         return viewDataBinding.root
+    }
+
+    private fun setUpFruitListAdapter() : FruitListAdapter {
+        return FruitListAdapter(FruitListAdapter.OnClickListener{
+            // TODO: Navigation to FruitDetailFragment. SafeArgs?
+        })
     }
 
 }
