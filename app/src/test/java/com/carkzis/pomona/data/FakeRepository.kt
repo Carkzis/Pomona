@@ -3,9 +3,11 @@ package com.carkzis.pomona.data
 import com.carkzis.pomona.R
 import com.carkzis.pomona.data.local.DatabaseFruit
 import com.carkzis.pomona.util.LoadingState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class FakeRepository @Inject constructor() : Repository {
@@ -34,7 +36,7 @@ class FakeRepository @Inject constructor() : Repository {
         }
     }.catch {
         emit(LoadingState.Error(R.string.error, Exception()))
-    }
+    }.flowOn(Dispatchers.IO)
 
     override suspend fun getFruit() = flow<List<DatabaseFruit>> {
         emit(testDatabaseFruit)

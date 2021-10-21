@@ -2,11 +2,18 @@ package com.carkzis.pomona.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.carkzis.pomona.util.LoadingState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.setMain
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -22,7 +29,7 @@ class RepositoryTest {
     private lateinit var repository: FakeRepository
 
     @Before
-    fun createRepository() {
+    fun setUp() {
         repository = FakeRepository()
     }
 
@@ -40,7 +47,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun refreshFruitData_networkCallError_receiveLoadingStateError() = runBlockingTest {
+    fun refreshFruitData_networkCallError_receiveLoadingStateError() = runBlocking {
         // Given that the network call will fail.
         repository.failure = true
 
@@ -59,7 +66,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun refreshFruitData_networkCallSuccessful_receiveLoadingStateSuccess() = runBlockingTest {
+    fun refreshFruitData_networkCallSuccessful_receiveLoadingStateSuccess() = runBlocking {
         // Given that the network call will succeed.
         repository.failure = false
 
@@ -83,7 +90,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun refreshFruitData_networkCallInProgress_receiveLoadingStateLoading() = runBlockingTest {
+    fun refreshFruitData_networkCallInProgress_receiveLoadingStateLoading() = runBlocking {
         // Given that the network call will stay at loading.
         repository.loading = true
 
