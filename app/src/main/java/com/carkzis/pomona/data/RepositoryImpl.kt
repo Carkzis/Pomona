@@ -1,5 +1,6 @@
 package com.carkzis.pomona.data
 
+import android.accounts.NetworkErrorException
 import com.carkzis.pomona.R
 import com.carkzis.pomona.data.local.DatabaseFruit
 import com.carkzis.pomona.data.local.PomonaDatabase
@@ -9,10 +10,11 @@ import com.carkzis.pomona.data.remote.asDatabaseModel
 import com.carkzis.pomona.util.LoadingState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
+import java.net.ConnectException
 
 class RepositoryImpl (private val database: PomonaDatabase): Repository {
 
-    override suspend fun refreshFruitData() = flow<LoadingState> {
+    override suspend fun refreshFruitData() = flow {
         // Emit a loading state.
         emit(LoadingState.Loading(R.string.loading))
 
@@ -24,7 +26,7 @@ class RepositoryImpl (private val database: PomonaDatabase): Repository {
 
         emit(LoadingState.Success(R.string.success, fruitList.fruit.size))
     }.catch {
-        emit(LoadingState.Error(R.string.error, Exception()))
+        emit(LoadingState.Error(R.string.error, NetworkErrorException()))
     }.flowOn(Dispatchers.IO)
 
     /**

@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 private val retrofit = Retrofit.Builder()
-    .baseUrl("http://bit.ly/")
+    .baseUrl("https://bit.ly/")
     .addConverterFactory(MoshiConverterFactory.create())
     .build()
 

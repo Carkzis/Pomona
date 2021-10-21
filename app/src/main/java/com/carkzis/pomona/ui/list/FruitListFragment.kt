@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.carkzis.pomona.databinding.FragmentFruitListBinding
-import com.carkzis.pomona.ui.FruitListAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class FruitListFragment : Fragment() {
@@ -32,15 +32,25 @@ class FruitListFragment : Fragment() {
         fruitListAdapter = setUpFruitListAdapter()
         viewDataBinding.fruitListRecyclerview.adapter = fruitListAdapter
 
-
         // Inflate the layout for this fragment.
         return viewDataBinding.root
     }
 
     private fun setUpFruitListAdapter() : FruitListAdapter {
         return FruitListAdapter(FruitListAdapter.OnClickListener{
-            // TODO: Navigation to FruitDetailFragment. SafeArgs?
+            it -> println(it)
         })
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUpDataObserver()
+    }
+
+    private fun setUpDataObserver() {
+        viewModel.fruitList.observe(viewLifecycleOwner, {
+            Timber.e(it.toString())
+            fruitListAdapter.addItemsToAdapter(it)
+        })
+    }
 }

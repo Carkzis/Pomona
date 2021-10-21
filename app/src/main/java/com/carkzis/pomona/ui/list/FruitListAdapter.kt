@@ -1,4 +1,4 @@
-package com.carkzis.pomona.ui
+package com.carkzis.pomona.ui.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,9 +6,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.carkzis.pomona.databinding.FruitItemBinding
+import com.carkzis.pomona.ui.DomainFruit
+import timber.log.Timber
 
 class FruitListAdapter(private val onClickListener: OnClickListener) :
     ListAdapter<DomainFruit, FruitListAdapter.FruitListViewHolder>(FruitListDiffCallBack()) {
+
+    var fruitList = listOf<DomainFruit>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -18,10 +22,20 @@ class FruitListAdapter(private val onClickListener: OnClickListener) :
     }
 
     override fun onBindViewHolder(holder: FruitListViewHolder, position: Int) {
-        val item = getItem(position)
+        val item = fruitList[position]
         holder.itemView.setOnClickListener {
             onClickListener.onClick(item)
         }
+        holder.bind(item)
+    }
+
+    override fun getItemCount(): Int {
+        return fruitList.size
+    }
+
+    fun addItemsToAdapter(items: List<DomainFruit>) {
+        fruitList = items
+        notifyDataSetChanged()
     }
 
     class FruitListViewHolder(private var binding: FruitItemBinding) :
@@ -55,5 +69,4 @@ class FruitListDiffCallBack : DiffUtil.ItemCallback<DomainFruit>() {
     override fun areContentsTheSame(oldItem: DomainFruit, newItem: DomainFruit): Boolean {
         return oldItem == newItem
     }
-
 }

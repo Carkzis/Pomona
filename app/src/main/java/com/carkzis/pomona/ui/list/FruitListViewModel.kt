@@ -30,6 +30,7 @@ class FruitListViewModel @Inject constructor(private val repository: Repository)
                     is LoadingState.Success -> {
                         Timber.e("Reviews loaded! ${loadingState.dataSize} of them!")
                         showToastMessage(loadingState.message)
+                        Timber.e(fruitList.value.toString())
                     }
                     is LoadingState.Error -> {
                         Timber.e("Error loading reviews: ${loadingState.exception}")
