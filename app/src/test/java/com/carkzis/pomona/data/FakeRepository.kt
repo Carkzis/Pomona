@@ -2,6 +2,8 @@ package com.carkzis.pomona.data
 
 import com.carkzis.pomona.R
 import com.carkzis.pomona.data.local.DatabaseFruit
+import com.carkzis.pomona.data.local.asDomainModel
+import com.carkzis.pomona.ui.DomainFruit
 import com.carkzis.pomona.util.LoadingState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -38,8 +40,8 @@ class FakeRepository @Inject constructor() : Repository {
         emit(LoadingState.Error(R.string.error, Exception()))
     }.flowOn(Dispatchers.IO)
 
-    override suspend fun getFruit() = flow<List<DatabaseFruit>> {
-        emit(testDatabaseFruit)
+    override fun getFruit() = flow {
+        emit(testDatabaseFruit.asDomainModel())
     }
 
 }

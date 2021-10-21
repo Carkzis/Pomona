@@ -3,14 +3,12 @@ package com.carkzis.pomona.data
 import com.carkzis.pomona.R
 import com.carkzis.pomona.data.local.DatabaseFruit
 import com.carkzis.pomona.data.local.PomonaDatabase
+import com.carkzis.pomona.data.local.asDomainModel
 import com.carkzis.pomona.data.remote.FruitApi
 import com.carkzis.pomona.data.remote.asDatabaseModel
 import com.carkzis.pomona.util.LoadingState
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.*
 
 class RepositoryImpl (private val database: PomonaDatabase): Repository {
 
@@ -23,12 +21,18 @@ class RepositoryImpl (private val database: PomonaDatabase): Repository {
 
         // Insert the result into the database as a List of DatabaseFruit.
         database.fruitDao().insertAllFruit(fruitList.asDatabaseModel())
+
+        emit(LoadingState.Success(R.string.success, fruitList.fruit.size))
     }.catch {
         emit(LoadingState.Error(R.string.error, Exception()))
     }.flowOn(Dispatchers.IO)
 
     /**
-     * Retrieves a list of fruit data from Room.
+     * Retrieves a list of fruit data from Room, mapping them to DomainFruit objects.
      */
-    override suspend fun getFruit() = database.fruitDao().getAllFruit()
+    override fun getFruit() = database.fruitDao().getAllFruit().flatMapLatest {
+        flow {
+            emit(it.asDomainModel())
+        }
+    }
 }

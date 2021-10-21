@@ -37,12 +37,12 @@ class RepositoryTest {
     fun getFruit_retrieveTestFruit() = runBlockingTest {
         // Confirm that getFruit() emits the list of DatabaseFruit held locally.
         repository.getFruit().collect {
-            assertThat(it[0].type, `is`("apple"))
-            assertThat(it[0].price, `is`(1000))
-            assertThat(it[0].weight, `is`(5000))
-            assertThat(it[1].type, `is`("pear"))
-            assertThat(it[1].price, `is`(2000))
-            assertThat(it[1].weight, `is`(8000))
+            assertThat(it[0].type, `is`("Apple"))
+            assertThat(it[0].price, `is`("£10.00"))
+            assertThat(it[0].weight, `is`("5.0kg"))
+            assertThat(it[1].type, `is`("Pear"))
+            assertThat(it[1].price, `is`("£20.00"))
+            assertThat(it[1].weight, `is`("8.0kg"))
         }
     }
 

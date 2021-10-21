@@ -40,7 +40,7 @@ class DataTransferObjectsTest {
     }
 
     @Test
-    fun fruitContainerAsDatabaseModel_weightFormatIncorrect_convertButWithZeroForWEight() {
+    fun fruitContainerAsDatabaseModel_weightFormatIncorrect_convertButWithZeroForWeight() {
         // Given a FruitContainer with a list of NetworkFruit, with erroneous "Z" added to weight.
         val fruitContainer = FruitContainer(mutableListOf(NetworkFruit("orange", "1000", "1233Z")))
 
