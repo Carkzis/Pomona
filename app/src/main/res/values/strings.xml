@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Pomona</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="loading">Loading…</string>
+    <string name="success">Fruit loaded.</string>
+    <string name="error">Error performing network call.</string>
 </resources>

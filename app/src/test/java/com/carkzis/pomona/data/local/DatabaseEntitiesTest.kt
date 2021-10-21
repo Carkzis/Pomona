@@ -11,7 +11,7 @@ class DatabaseEntitiesTest {
         // Given a DatabaseFruit.
         val databaseFruit = mutableListOf(DatabaseFruit("orange", 1000, 1233))
 
-        // Call the extension function to return a DomainFruit.
+        // Call the extension function to return a list of one DomainFruit object.
         val domainFruit = databaseFruit.asDomainModel()
 
         // Assert that the DomainFruit holds the correct information converted from databaseFruit.
@@ -88,7 +88,7 @@ class DatabaseEntitiesTest {
         // Call the method to convert and format to pounds and pennies.
         val poundsAndPennies = convertToPoundsAndPennies(pennies)
 
-        // Assert that we get the correct formatting of pounds and pennies.
+        // Assert that we get the error message.
         assertThat(poundsAndPennies, `is`("???"))
     }
 
@@ -136,7 +136,7 @@ class DatabaseEntitiesTest {
         // Call the method to convert and format to kilograms.
         val kilograms = convertToKilograms(grams)
 
-        // Assert that we get the correct amount of kilograms in the correct format.
+        // Assert that we get the error message.
         assertThat(kilograms, `is`("???"))
     }
 }
