@@ -10,10 +10,15 @@ import com.carkzis.pomona.data.remote.asDatabaseModel
 import com.carkzis.pomona.util.LoadingState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
+import java.io.IOException
 import java.net.ConnectException
 
 class RepositoryImpl (private val database: PomonaDatabase): Repository {
 
+    /**
+     * Performs a network call to the Fruit API, and refreshes the local SQLite database
+     * with the result using Room.
+     */
     override suspend fun refreshFruitData() = flow {
         // Emit a loading state.
         emit(LoadingState.Loading(R.string.loading))
@@ -26,7 +31,7 @@ class RepositoryImpl (private val database: PomonaDatabase): Repository {
 
         emit(LoadingState.Success(R.string.success, fruitList.fruit.size))
     }.catch {
-        emit(LoadingState.Error(R.string.error, NetworkErrorException()))
+        emit(LoadingState.Error(R.string.error, IOException()))
     }.flowOn(Dispatchers.IO)
 
     /**
