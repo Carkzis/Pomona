@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.carkzis.pomona.databinding.FragmentFruitListBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -36,9 +37,18 @@ class FruitListFragment : Fragment() {
         return viewDataBinding.root
     }
 
-    private fun setUpFruitListAdapter() : FruitListAdapter {
-        return FruitListAdapter(FruitListAdapter.OnClickListener{
-            it -> println(it)
+    private fun setUpFruitListAdapter(): FruitListAdapter {
+        return FruitListAdapter(FruitListAdapter.OnClickListener {
+            this.findNavController().navigate(
+                // Pass through the current fruit's details.
+                FruitListFragmentDirections.actionFruitListFragmentToFruitDetailFragment(
+                    arrayOf(
+                        it.type,
+                        it.price,
+                        it.weight
+                    )
+                )
+            )
         })
     }
 
@@ -49,7 +59,6 @@ class FruitListFragment : Fragment() {
 
     private fun setUpDataObserver() {
         viewModel.fruitList.observe(viewLifecycleOwner, {
-            Timber.e(it.toString())
             fruitListAdapter.addItemsToAdapter(it)
         })
     }

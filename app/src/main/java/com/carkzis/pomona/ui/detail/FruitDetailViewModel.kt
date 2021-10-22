@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.carkzis.pomona.ui.DomainFruit
 import dagger.hilt.android.lifecycle.HiltViewModel
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,7 +18,8 @@ class FruitDetailViewModel @Inject constructor() : ViewModel() {
     /**
      * Posts the details of the selected fruit to the fruit LiveData.
      */
-    fun setUpFruitDetail(selectedFruit: DomainFruit) {
+    fun postFruitDetailsToLiveData(selectedFruit: DomainFruit) {
+        Timber.e(selectedFruit.type)
         _fruit.value = selectedFruit
     }
 

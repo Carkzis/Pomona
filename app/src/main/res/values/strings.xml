@@ -4,4 +4,6 @@
     <string name="loading">Loading…</string>
     <string name="success">Fruit loaded.</string>
     <string name="error">Error performing network call.</string>
+    <string name="weight">Weight:</string>
+    <string name="price">Price:</string>
 </resources>

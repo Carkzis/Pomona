@@ -31,7 +31,7 @@ class FruitDetailViewModelTest {
         val fruit = DomainFruit(fruitType, fruitPrice, fruitWeight) // It's pretty heavy.
 
         // When the method setUpFruitDetail is called.
-        fruitDetailViewModel.setUpFruitDetail(fruit)
+        fruitDetailViewModel.postFruitDetailsToLiveData(fruit)
 
         // Assert that the same fruit is posted to the LiveData.
         assertThat(fruitDetailViewModel.fruit.getOrAwaitValue().type, `is`(fruitType))

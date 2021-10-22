@@ -9,5 +9,22 @@
         android:id="@+id/fruitListFragment"
         android:name="com.carkzis.pomona.ui.list.FruitListFragment"
         android:label="fragment_fruit_list"
-        tools:layout="@layout/fragment_fruit_list" />
+        tools:layout="@layout/fragment_fruit_list" >
+        <action
+            android:id="@+id/action_fruitListFragment_to_fruitDetailFragment"
+            app:destination="@id/fruitDetailFragment" >
+            <argument
+                android:name="fruitDetail"
+                app:argType="string[]" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/fruitDetailFragment"
+        android:name="com.carkzis.pomona.ui.detail.FruitDetailFragment"
+        android:label="fragment_fruit_detail"
+        tools:layout="@layout/fragment_fruit_detail" >
+        <argument
+            android:name="fruitDetail"
+            app:argType="string[]" />
+    </fragment>
 </navigation>
