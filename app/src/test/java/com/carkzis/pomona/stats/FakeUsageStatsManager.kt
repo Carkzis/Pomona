@@ -9,6 +9,8 @@ import kotlinx.coroutines.launch
 class FakeUsageStatsManager : StatsManager() {
 
     var queryPair = Pair<String?, String?>(null, null)
+    var timeToCalculate = false
+    var initialTime = 0L
 
     override fun generateEventStats(event: String, data: String) {
         queryPair = Pair(event, data)
@@ -19,8 +21,17 @@ class FakeUsageStatsManager : StatsManager() {
         generateEventStats("load", timeMSec.toString())
     }
 
-    override fun generateDisplayEventStats(timeMSec: Int) {
-        generateEventStats("display", timeMSec.toString())
+    override fun generateDisplayEventStats() {
+        // TODO: Consider if the user exits in between the start and stop.
+        if (!timeToCalculate) {
+            initialTime = System.currentTimeMillis()
+            timeToCalculate = true
+        } else {
+            val difference = (System.currentTimeMillis() - initialTime).toString()
+            generateEventStats("display", difference)
+            timeToCalculate = false
+            initialTime = 0L
+        }
     }
 
     override fun generateErrorEventStats(exception: Exception) {

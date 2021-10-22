@@ -16,7 +16,7 @@ object UsageStatsManager : StatsManager() {
         TODO("Not yet implemented")
     }
 
-    override fun generateDisplayEventStats(timeMSec: Int) {
+    override fun generateDisplayEventStats() {
         TODO("Not yet implemented")
     }
 

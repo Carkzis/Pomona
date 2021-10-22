@@ -2,6 +2,7 @@ package com.carkzis.pomona.stats
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.carkzis.pomona.data.FakeRepository
+import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
@@ -67,7 +68,16 @@ class UsageStatsManagerTest {
         assertThat(usageStatsManager.queryPair.second, `is`(null))
     }
 
-    fun generateDisplayEventStats() {
+    @Test
+    fun generateDisplayEventStats_startAndStop_getPairOfEventAndPositiveTime() {
+        // Call the method twice.
+        usageStatsManager.generateDisplayEventStats()
+        sleep(100) // Sleep so that we can generate a positive number on second method call.
+        usageStatsManager.generateDisplayEventStats()
+
+        // Assert that event stats "sent" to queryPair, and the milliseconds are positive.
+        assertThat(usageStatsManager.queryPair.first, `is`("display"))
+        assertTrue(usageStatsManager.queryPair.second!! > 0.toString())
     }
 
     fun generateErrorEventStats() {
