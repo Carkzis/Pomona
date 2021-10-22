@@ -1,5 +1,6 @@
 package com.carkzis.pomona.data.remote
 
+import kotlinx.coroutines.coroutineScope
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET

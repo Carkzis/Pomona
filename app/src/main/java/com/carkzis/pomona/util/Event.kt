@@ -3,7 +3,7 @@ package com.carkzis.pomona.util
 /**
 * This class takes in content, and ensures that it is only used once.
 * Returns null if hasBeenHandled is true, or the content if it is false (it's default state).
-* Thank you to Jose Alcerreca for providing this:
+* Thanks go to Google's Jose Alcerreca for providing this:
 * (https://gist.github.com/JoseAlcerreca/5b661f1800e1e654f07cc54fe87441af).
 */
 open class Event <out T>(private val content: T) {

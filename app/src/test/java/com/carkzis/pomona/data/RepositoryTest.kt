@@ -101,7 +101,7 @@ class RepositoryTest {
                 is LoadingState.Error -> false
                 is LoadingState.Success -> false
                 is LoadingState.Loading -> true
-                }
+            }
             }
 
         // Assert that the confirmation that the network call is in progress is emitted.
