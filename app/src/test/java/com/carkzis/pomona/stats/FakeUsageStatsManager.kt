@@ -1,11 +1,5 @@
 package com.carkzis.pomona.stats
 
-import com.carkzis.pomona.data.remote.StatsApi
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
-
 class FakeUsageStatsManager : StatsManager() {
 
     var queryPair = Pair<String?, String?>(null, null)
@@ -35,8 +29,20 @@ class FakeUsageStatsManager : StatsManager() {
     }
 
     override fun generateErrorEventStats(exception: Exception) {
-        TODO("Not yet implemented")
-    }
+        // Get the formatted exception name.
+        val exceptionName = formatExceptionName(exception)
+        // Get the full class name.
+        val fullClassName = exception.stackTrace[0].className
+        // Get the simple class name in lowercase.
+        val simpleClassName = fullClassName
+            .substring(fullClassName.lastIndexOf('.') + 1).lowercase()
+        // Get the line number.
+        val lineNumber = exception.stackTrace[0].lineNumber
 
+        // Form an event message.
+        val eventMessage = "$exceptionName on line $lineNumber in $simpleClassName"
+
+        generateEventStats("error", eventMessage)
+    }
 
 }

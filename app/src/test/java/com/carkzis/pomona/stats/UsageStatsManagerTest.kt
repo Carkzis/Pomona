@@ -11,11 +11,13 @@ import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.setMain
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import java.lang.NullPointerException
 import java.lang.Thread.sleep
 
 @ExperimentalCoroutinesApi
@@ -63,9 +65,9 @@ class UsageStatsManagerTest {
         // When the method is called.
         usageStatsManager.generateLoadEventStats(milliSeconds)
 
-        // Assert that event stats are "sent" to queryPair. This imitates not sending usage stats.
-        assertThat(usageStatsManager.queryPair.first, `is`(null))
-        assertThat(usageStatsManager.queryPair.second, `is`(null))
+        // Assert that event stats not "sent" to queryPair. This imitates not sending usage stats.
+        assertThat(usageStatsManager.queryPair.first, `is`(nullValue()))
+        assertThat(usageStatsManager.queryPair.second, `is`(nullValue()))
     }
 
     @Test
@@ -80,7 +82,29 @@ class UsageStatsManagerTest {
         assertTrue(usageStatsManager.queryPair.second!! > 0.toString())
     }
 
-    fun generateErrorEventStats() {
+    @Test
+    fun generateDisplayEventStats_startButNoStop_noValuesAddedToPair() {
+        // Call the method once, which will not end up with the stats being sent.
+        usageStatsManager.generateDisplayEventStats()
+        sleep(100) // Sleep as a control.
+
+        // Assert that event stats not "sent" to queryPair. This imitates not sending usage stats.
+        assertThat(usageStatsManager.queryPair.first, `is`(nullValue()))
+        assertThat(usageStatsManager.queryPair.second, `is`(nullValue()))
+    }
+
+    @Test
+    fun generateErrorEventStats_exceptionInfoSent_getPairOfEventAndErrorReason() {
+        // Given a null pointer exception.
+        val exception = NullPointerException()
+
+        // When we call the method to "sent" the error report.
+        usageStatsManager.generateErrorEventStats(NullPointerException())
+
+        // Assert that event stats are sent to queryPair. This imitates sending the stats.
+        assertThat(usageStatsManager.queryPair.first, `is`("error"))
+        assertThat(usageStatsManager.queryPair.second, `is`(
+            "null pointer exception on line 102 in usagestatsmanagertest"))
     }
 
 }
