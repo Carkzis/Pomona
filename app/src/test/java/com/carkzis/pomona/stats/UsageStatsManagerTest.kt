@@ -17,6 +17,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import java.io.IOException
 import java.lang.NullPointerException
 import java.lang.Thread.sleep
 
@@ -98,13 +99,28 @@ class UsageStatsManagerTest {
         // Given a null pointer exception.
         val exception = NullPointerException()
 
-        // When we call the method to "sent" the error report.
-        usageStatsManager.generateErrorEventStats(NullPointerException())
+        // When we call the method to "send" the error report.
+        usageStatsManager.generateErrorEventStats(exception)
 
         // Assert that event stats are sent to queryPair. This imitates sending the stats.
         assertThat(usageStatsManager.queryPair.first, `is`("error"))
         assertThat(usageStatsManager.queryPair.second, `is`(
-            "null pointer exception on line 102 in usagestatsmanagertest"))
+            "null pointer exception on line ${exception.stackTrace[0].lineNumber} in usagestatsmanagertest"))
+    }
+
+    @Test
+    fun formatExceptionName_IOException_exceptionCorrectlyFormatted() {
+        // Given a null pointer exception.
+        val exception = IOException(); usageStatsManager.generateErrorEventStats(exception)
+
+        // When we call the method to format the exception.
+        val formattedException = usageStatsManager.formatExceptionName(exception)
+
+        /*
+        Assert that we get a correctly formatted exception, separated with spaces at capital
+        and converted to lowercase.
+         */
+        assertThat(formattedException, `is`("i o exception"))
     }
 
 }
