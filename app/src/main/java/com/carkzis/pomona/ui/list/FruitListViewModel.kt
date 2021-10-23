@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FruitListViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
-    val fruitList: LiveData<List<DomainFruit>> = repository.getFruit().asLiveData()
+    val fruitList: LiveData<List<DomainFruit>?> = repository.getFruit().asLiveData()
 
     init {
         refreshRepository()

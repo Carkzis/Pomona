@@ -57,14 +57,7 @@ class FruitListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpDataObserver()
         setUpRefreshFab()
-    }
-
-    private fun setUpDataObserver() {
-        viewModel.fruitList.observe(viewLifecycleOwner, {
-            fruitListAdapter.addItemsToAdapter(it)
-        })
     }
 
     private fun setUpRefreshFab() {

@@ -12,8 +12,6 @@ import timber.log.Timber
 class FruitListAdapter(private val onClickListener: OnClickListener) :
     ListAdapter<DomainFruit, FruitListAdapter.FruitListViewHolder>(FruitListDiffCallBack()) {
 
-    var fruitList = listOf<DomainFruit>()
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -22,20 +20,11 @@ class FruitListAdapter(private val onClickListener: OnClickListener) :
     }
 
     override fun onBindViewHolder(holder: FruitListViewHolder, position: Int) {
-        val item = fruitList[position]
+        val item = getItem(position)
         holder.itemView.setOnClickListener {
             onClickListener.onClick(item)
         }
         holder.bind(item)
-    }
-
-    override fun getItemCount(): Int {
-        return fruitList.size
-    }
-
-    fun addItemsToAdapter(items: List<DomainFruit>) {
-        fruitList = items
-        notifyDataSetChanged()
     }
 
     class FruitListViewHolder(private var binding: FruitItemBinding) :
