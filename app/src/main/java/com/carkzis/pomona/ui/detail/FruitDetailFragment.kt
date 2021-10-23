@@ -11,6 +11,7 @@ import com.carkzis.pomona.R
 import com.carkzis.pomona.databinding.FragmentFruitDetailBinding
 import com.carkzis.pomona.stats.UsageStatsManager
 import com.carkzis.pomona.ui.DomainFruit
+import com.carkzis.pomona.util.getFruitColourFilter
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -39,20 +40,25 @@ class FruitDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         // Stop the timer now that the View has been created, which will send the stats to the API.
         UsageStatsManager.generateDisplayEventStats()
-        setUpFruitDetail()
+        setUpFruitDetail(view)
     }
 
     /**
      * Collects the selected fruit details from SafeArgs, and sends
      * them to the FruitDetailViewModel.
      */
-    private fun setUpFruitDetail() {
+    private fun setUpFruitDetail(view: View) {
         val currentFruit =
             DomainFruit(args.fruitDetail[0], args.fruitDetail[1], args.fruitDetail[2])
-        Timber.e(currentFruit.price)
+        setUpBackgroundColour(view, currentFruit.type)
         viewModel.postFruitDetailsToLiveData(currentFruit)
     }
 
+    private fun setUpBackgroundColour(view: View, type: String) {
+        val detailsContainerView = view.findViewById<View>(R.id.clayout_fruit_detail)
+        val fruitColourFilter = getFruitColourFilter(type, context!!)
+        detailsContainerView.background.colorFilter = fruitColourFilter
+    }
 
 
 }
