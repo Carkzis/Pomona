@@ -104,8 +104,11 @@ class UsageStatsManagerTest {
 
         // Assert that event stats are sent to queryPair. This imitates sending the stats.
         assertThat(usageStatsManager.queryPair.first, `is`("error"))
-        assertThat(usageStatsManager.queryPair.second, `is`(
-            "null pointer exception on line ${exception.stackTrace[0].lineNumber} in usagestatsmanagertest"))
+        assertThat(
+            usageStatsManager.queryPair.second, `is`(
+                "null pointer exception on line ${exception.stackTrace[0].lineNumber} in usagestatsmanagertest"
+            )
+        )
     }
 
     @Test
@@ -123,4 +126,27 @@ class UsageStatsManagerTest {
         assertThat(formattedException, `is`("i o exception"))
     }
 
+    @Test
+    fun formatClassName_blankStringEntered_unknownStringReturned() {
+        // Given a blank String representing a full class name.
+        val string = ""
+
+        // When we call the method to format the class.
+        val formattedClass = usageStatsManager.formatClassName(string)
+
+        // Assert that we return "unknown" as our default value.
+        assertThat(formattedClass, `is`("unknown"))
+    }
+
+    @Test
+    fun formatClassName_fullClassStringEntered_simpleClassStringReturned() {
+        // Given a blank String representing a full class name.
+        val string = "com.carkzis.pomona.stats.UsageStatsManagerTest"
+
+        // When we call the method to format the class.
+        val formattedClass = usageStatsManager.formatClassName(string)
+
+        // Assert that we return "unknown" as our default value.
+        assertThat(formattedClass, `is`("usagestatsmanagertest"))
+    }
 }

@@ -12,16 +12,4 @@ object UsageStatsManager : StatsManager() {
         }
     }
 
-    override fun generateLoadEventStats(timeMSec: Int) {
-        TODO("Not yet implemented")
-    }
-
-    override fun generateDisplayEventStats() {
-        TODO("Not yet implemented")
-    }
-
-    override fun generateErrorEventStats(exception: Exception) {
-        TODO("Not yet implemented")
-    }
-
 }

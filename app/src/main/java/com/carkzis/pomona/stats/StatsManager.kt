@@ -2,19 +2,58 @@ package com.carkzis.pomona.stats
 
 abstract class StatsManager {
 
-    abstract fun generateEventStats(event: String, data: String)
-    abstract fun generateLoadEventStats(timeMSec: Int)
-    abstract fun generateDisplayEventStats()
-    abstract fun generateErrorEventStats(exception: Exception)
+    var timeToCalculate = false
+    var initialTime = 0L
+    protected abstract fun generateEventStats(event: String, data: String)
+
+    fun generateLoadEventStats(timeMSec: Int) {
+        if (timeMSec < 0 ) return // There is an error with the time elapsed.
+        generateEventStats("load", timeMSec.toString())
+    }
+
+    fun generateDisplayEventStats() {
+        // TODO: Consider if the user exits in between the start and stop.
+        if (!timeToCalculate) {
+            initialTime = System.currentTimeMillis()
+            timeToCalculate = true
+        } else {
+            val difference = (System.currentTimeMillis() - initialTime).toString()
+            generateEventStats("display", difference)
+            timeToCalculate = false
+            initialTime = 0L
+        }
+    }
+
+    fun generateErrorEventStats(exception: Exception) {
+        // Get the formatted exception name.
+        val exceptionName = formatExceptionName(exception)
+        // Get the full class name.
+        val className = formatClassName(exception.stackTrace[0].className)
+        // Get the line number.
+        val lineNumber = exception.stackTrace[0].lineNumber
+
+        // Form an event message.
+        val eventMessage = "$exceptionName on line $lineNumber in $className"
+
+        generateEventStats("error", eventMessage)
+    }
 
     fun formatExceptionName(exception: Exception) : String {
-        var exceptionName = exception::class.java.simpleName // Get the simple name of the exception.
+        // Get the simple name of the exception.
+        val exceptionName = exception::class.java.simpleName
         // Split the name up by uppercase letters.
         val splitNameList = exceptionName.split(Regex("(?=\\p{Upper})"))
         // Removes the first, empty item.
         val splitNameSubList = splitNameList.subList(1, splitNameList.size)
         // Return a string split by spaces in lowercase.
         return splitNameSubList.joinToString(" ").lowercase()
+    }
+
+    fun formatClassName(fullClassName: String) : String {
+        // Get the simple class name in lowercase.
+        val simpleClassName = fullClassName
+            .substring(fullClassName.lastIndexOf('.') + 1).lowercase()
+        return if (simpleClassName.isNotEmpty()) simpleClassName else "unknown"
     }
 
 }
