@@ -15,4 +15,13 @@
     <color name="secondaryDarkColor">#82b3c9</color>
     <color name="primaryTextColor">#000000</color>
     <color name="secondaryTextColor">#000000</color>
+    <color name="apple">#66B447</color>
+    <color name="banana">#FFE135</color>
+    <color name="blueberry">#4F86F7</color>
+    <color name="orange">#FFA500</color>
+    <color name="pear">#D1E231</color>
+    <color name="strawberry">#FC5A8D</color>
+    <color name="kumquat">#FB9912</color>
+    <color name="pitaya">#F35D8B</color>
+    <color name="kiwi">#7A960F</color>
 </resources>

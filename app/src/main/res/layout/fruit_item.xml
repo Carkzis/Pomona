@@ -13,14 +13,19 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clayout_fruit_item"
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="80dp"
+        android:foreground="@drawable/rippler"
+        android:background="@drawable/fruit_item_border"
+        android:focusable="true" >
 
         <TextView
             android:id="@+id/textview_fruit_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{domainFruit.type}"
+            android:textColor="@color/black"
             android:textAlignment="center"
             android:textSize="20sp"
             android:textStyle="bold"

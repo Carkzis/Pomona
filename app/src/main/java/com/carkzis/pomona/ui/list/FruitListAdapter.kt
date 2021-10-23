@@ -1,12 +1,20 @@
 package com.carkzis.pomona.ui.list
 
+import android.content.Context
+import android.graphics.*
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getColor
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.carkzis.pomona.R
 import com.carkzis.pomona.databinding.FruitItemBinding
 import com.carkzis.pomona.ui.DomainFruit
+import com.carkzis.pomona.util.getFruitColourFilter
+import kotlinx.coroutines.NonDisposableHandle.parent
 import timber.log.Timber
 
 class FruitListAdapter(private val onClickListener: OnClickListener) :
@@ -19,11 +27,20 @@ class FruitListAdapter(private val onClickListener: OnClickListener) :
         return FruitListViewHolder.from(parent)
     }
 
+    private lateinit var context: Context
+
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+        context = recyclerView.context
+    }
+
     override fun onBindViewHolder(holder: FruitListViewHolder, position: Int) {
         val item = getItem(position)
         holder.itemView.setOnClickListener {
             onClickListener.onClick(item)
         }
+        holder.itemView.findViewById<View>(R.id.clayout_fruit_item).background.colorFilter =
+            getFruitColourFilter(item.type, context)
         holder.bind(item)
     }
 
