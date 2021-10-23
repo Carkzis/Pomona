@@ -146,7 +146,19 @@ class UsageStatsManagerTest {
         // When we call the method to format the class.
         val formattedClass = usageStatsManager.formatClassName(string)
 
-        // Assert that we return "unknown" as our default value.
+        // Assert that we return the simple class name.
+        assertThat(formattedClass, `is`("usagestatsmanagertest"))
+    }
+
+    @Test
+    fun formatClassName_classStringWithMethodEntered_simpleClassStringReturned() {
+        // Given a blank String representing a full class name and method.
+        val string = "com.carkzis.pomona.stats.UsageStatsManagerTest\$Before"
+
+        // When we call the method to format the class.
+        val formattedClass = usageStatsManager.formatClassName(string)
+
+        // Assert that we return just the class name, and no method.
         assertThat(formattedClass, `is`("usagestatsmanagertest"))
     }
 }

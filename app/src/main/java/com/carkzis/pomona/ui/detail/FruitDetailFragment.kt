@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.carkzis.pomona.R
 import com.carkzis.pomona.databinding.FragmentFruitDetailBinding
+import com.carkzis.pomona.stats.UsageStatsManager
 import com.carkzis.pomona.ui.DomainFruit
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -36,6 +37,8 @@ class FruitDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Stop the timer now that the View has been created, which will send the stats to the API.
+        UsageStatsManager.generateDisplayEventStats()
         setUpFruitDetail()
     }
 

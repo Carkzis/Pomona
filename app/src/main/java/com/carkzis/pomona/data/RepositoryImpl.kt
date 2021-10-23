@@ -6,12 +6,15 @@ import com.carkzis.pomona.data.local.DatabaseFruit
 import com.carkzis.pomona.data.local.PomonaDatabase
 import com.carkzis.pomona.data.local.asDomainModel
 import com.carkzis.pomona.data.remote.FruitApi
+import com.carkzis.pomona.data.remote.FruitContainer
 import com.carkzis.pomona.data.remote.asDatabaseModel
+import com.carkzis.pomona.stats.UsageStatsManager
 import com.carkzis.pomona.util.LoadingState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import java.io.IOException
 import java.net.ConnectException
+import kotlin.system.measureTimeMillis
 
 class RepositoryImpl (private val database: PomonaDatabase): Repository {
 
@@ -23,14 +26,23 @@ class RepositoryImpl (private val database: PomonaDatabase): Repository {
         // Emit a loading state.
         emit(LoadingState.Loading(R.string.loading))
 
-        // Perform a call the the Fruit API.
-        val fruitList = FruitApi.retroService.getFruitInformation()
+        var fruitList = FruitContainer(mutableListOf())
+
+        val timeTaken = measureTimeMillis {
+            // Perform a call the the Fruit API.
+            fruitList = FruitApi.retroService.getFruitInformation()
+        }
 
         // Insert the result into the database as a List of DatabaseFruit.
         database.fruitDao().insertAllFruit(fruitList.asDatabaseModel())
 
         emit(LoadingState.Success(R.string.success, fruitList.fruit.size))
+
+        UsageStatsManager.generateLoadEventStats(timeTaken)
+
     }.catch {
+        val exception = IOException()
+        UsageStatsManager.generateErrorEventStats(exception)
         emit(LoadingState.Error(R.string.error, IOException()))
     }.flowOn(Dispatchers.IO)
 

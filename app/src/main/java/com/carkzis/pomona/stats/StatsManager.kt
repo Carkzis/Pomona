@@ -6,8 +6,8 @@ abstract class StatsManager {
     var initialTime = 0L
     protected abstract fun generateEventStats(event: String, data: String)
 
-    fun generateLoadEventStats(timeMSec: Int) {
-        if (timeMSec < 0 ) return // There is an error with the time elapsed.
+    fun generateLoadEventStats(timeMSec: Long) {
+        if (timeMSec < 0) return // There is an error with the time elapsed.
         generateEventStats("load", timeMSec.toString())
     }
 
@@ -38,22 +38,28 @@ abstract class StatsManager {
         generateEventStats("error", eventMessage)
     }
 
-    fun formatExceptionName(exception: Exception) : String {
+    fun formatExceptionName(exception: Exception): String {
         // Get the simple name of the exception.
         val exceptionName = exception::class.java.simpleName
         // Split the name up by uppercase letters.
         val splitNameList = exceptionName.split(Regex("(?=\\p{Upper})"))
         // Removes the first, empty item.
         val splitNameSubList = splitNameList.subList(1, splitNameList.size)
-        // Return a string split by spaces in lowercase.
+        // Return a string split by spaces in lowercase. Spaces will be encoded by retrofit.
         return splitNameSubList.joinToString(" ").lowercase()
     }
 
-    fun formatClassName(fullClassName: String) : String {
+    fun formatClassName(fullClassName: String): String {
+        if (fullClassName.isEmpty()) return "unknown"
         // Get the simple class name in lowercase.
         val simpleClassName = fullClassName
             .substring(fullClassName.lastIndexOf('.') + 1).lowercase()
-        return if (simpleClassName.isNotEmpty()) simpleClassName else "unknown"
+        // Return the simple class name, with method removed (follows a $) if applicable.
+        return if (simpleClassName.contains("$")) {
+            simpleClassName.substring(0, simpleClassName.indexOf("$"))
+        } else {
+            simpleClassName
+        }
     }
 
 }

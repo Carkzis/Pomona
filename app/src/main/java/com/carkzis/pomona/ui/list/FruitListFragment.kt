@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.carkzis.pomona.databinding.FragmentFruitListBinding
+import com.carkzis.pomona.stats.UsageStatsManager
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -39,6 +40,8 @@ class FruitListFragment : Fragment() {
 
     private fun setUpFruitListAdapter(): FruitListAdapter {
         return FruitListAdapter(FruitListAdapter.OnClickListener {
+            // Initiate the "timer" for generating stats on how long it takes to load next screen.
+            UsageStatsManager.generateDisplayEventStats()
             this.findNavController().navigate(
                 // Pass through the current fruit's details.
                 FruitListFragmentDirections.actionFruitListFragmentToFruitDetailFragment(

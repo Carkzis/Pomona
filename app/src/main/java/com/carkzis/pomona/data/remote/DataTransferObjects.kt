@@ -2,7 +2,9 @@ package com.carkzis.pomona.data.remote
 
 import android.provider.ContactsContract
 import com.carkzis.pomona.data.local.DatabaseFruit
+import com.carkzis.pomona.stats.UsageStatsManager
 import com.squareup.moshi.JsonClass
+import java.io.IOException
 import java.lang.NumberFormatException
 
 @JsonClass(generateAdapter = true)
@@ -23,10 +25,18 @@ fun FruitContainer.asDatabaseModel(): List<DatabaseFruit> {
             type = it.type,
             price = try {
                 it.price.toInt()
-            } catch (e: NumberFormatException) { -1 },
+            } catch (e: NumberFormatException) {
+                // Generate error stats.
+                UsageStatsManager.generateErrorEventStats(e)
+                -1
+            },
             weight = try {
                 it.weight.toInt()
-            } catch (e: NumberFormatException) { -1 },
+            } catch (e: NumberFormatException) {
+                // Generate error stats.
+                UsageStatsManager.generateErrorEventStats(e)
+                -1
+            },
         )
     }
 }
