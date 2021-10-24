@@ -16,6 +16,10 @@ class FruitListViewModel @Inject constructor(private val repository: Repository)
 
     val fruitList: LiveData<List<DomainFruit>?> = repository.getFruit().asLiveData()
 
+    private var _loadingState = MutableLiveData<LoadingState>()
+    val loadingState: LiveData<LoadingState>
+        get() = _loadingState
+
     init {
         refreshRepository()
     }
@@ -26,15 +30,19 @@ class FruitListViewModel @Inject constructor(private val repository: Repository)
                 when (loadingState) {
                     is LoadingState.Loading -> {
                         Timber.e("Loading reviews...")
+                        _loadingState.value = loadingState
                     }
                     is LoadingState.Success -> {
-                        Timber.e("Reviews loaded! ${loadingState.dataSize} of them!")
+                        Timber.e("Reviews loaded! ${loadingState.dataSize} of them.")
+                        Timber.e(fruitList.value.toString())
                         showToastMessage(loadingState.message)
                         Timber.e(fruitList.value.toString())
+                        _loadingState.value = loadingState
                     }
                     is LoadingState.Error -> {
-                        Timber.e("Error loading reviews: ${loadingState.exception}")
+                        Timber.e("Error loading reviews: ${loadingState.exception}.")
                         showToastMessage(loadingState.message)
+                        _loadingState.value = loadingState
                     }
                 }
             }
