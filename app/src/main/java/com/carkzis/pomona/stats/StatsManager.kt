@@ -2,7 +2,6 @@ package com.carkzis.pomona.stats
 
 abstract class StatsManager {
 
-    var timeToCalculate = false
     var initialTime = 0L
     protected abstract fun generateEventStats(event: String, data: String)
 
@@ -11,17 +10,23 @@ abstract class StatsManager {
         generateEventStats("load", timeMSec.toString())
     }
 
-    fun generateDisplayEventStats() {
-        // TODO: Consider if the user exits in between the start and stop.
-        if (!timeToCalculate) {
-            initialTime = System.currentTimeMillis()
-            timeToCalculate = true
-        } else {
-            val difference = (System.currentTimeMillis() - initialTime).toString()
-            generateEventStats("display", difference)
-            timeToCalculate = false
-            initialTime = 0L
-        }
+    /**
+     * Starts the timer for a display event from when the user initiated the request to display
+     * a screen. It will overwrite a previous call even if the corresponding
+     * [stopDisplayEventStats] method has not been called.
+     */
+    fun startDisplayEventStats() {
+        initialTime = System.currentTimeMillis()
+    }
+
+    /**
+     * Stops the timer for a display event, and posts the details to [generateEventStats].
+     */
+    fun stopDisplayEventStats() {
+        if (initialTime <= 0) return // We haven't called startDisplayEventStats().
+        val difference = (System.currentTimeMillis() - initialTime).toString()
+        generateEventStats("display", difference)
+        initialTime = 0L
     }
 
     fun generateErrorEventStats(exception: Exception) {

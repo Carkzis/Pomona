@@ -18,7 +18,7 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clayout_fruit_detail"
+            android:id="@+id/fruit_detail_clayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/fruit_item_border"
@@ -30,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/textview_fruit_type"
+                android:id="@+id/fruit_type_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
@@ -52,7 +52,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textview_fruit_type">
+                app:layout_constraintTop_toBottomOf="@+id/fruit_type_text_view">
 
                 <TableRow
                     android:layout_width="match_parent"

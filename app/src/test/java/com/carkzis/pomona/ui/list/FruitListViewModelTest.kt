@@ -47,9 +47,9 @@ class FruitListViewModelTest {
     @Test
     fun refreshRepository_refreshedOnInitialisation_allDataCollectedIntoFruitListLiveData() = runBlocking {
         // refreshRepository is called on initialisation of FruitListViewModel.
-        assertThat(fruitListViewModel.fruitList.getOrAwaitValue().size, `is`(2))
-        assertThat(fruitListViewModel.fruitList.getOrAwaitValue()[0].type, `is`("Apple"))
-        assertThat(fruitListViewModel.fruitList.getOrAwaitValue()[1].type, `is`("Pear"))
+        assertThat(fruitListViewModel.fruitList.getOrAwaitValue()?.size, `is`(2))
+        assertThat(fruitListViewModel.fruitList.getOrAwaitValue()?.get(0)?.type, `is`("Apple"))
+        assertThat(fruitListViewModel.fruitList.getOrAwaitValue()?.get(1)?.type, `is`("Pear"))
     }
 
     @Test

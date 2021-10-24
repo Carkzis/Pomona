@@ -41,8 +41,8 @@ class FruitListFragment : Fragment() {
     private fun setUpFruitListAdapter(): FruitListAdapter {
         return FruitListAdapter(FruitListAdapter.OnClickListener {
             // Initiate the "timer" for generating stats on how long it takes to load next screen.
-            UsageStatsManager.generateDisplayEventStats()
-            this.findNavController().navigate(
+            UsageStatsManager.startDisplayEventStats()
+            findNavController().navigate(
                 // Pass through the current fruit's details.
                 FruitListFragmentDirections.actionFruitListFragmentToFruitDetailFragment(
                     arrayOf(
@@ -57,11 +57,12 @@ class FruitListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        UsageStatsManager.stopDisplayEventStats()
         setUpRefreshFab()
     }
 
     private fun setUpRefreshFab() {
-        viewDataBinding.fabRefresh.setOnClickListener {
+        viewDataBinding.refreshFab.setOnClickListener {
             viewModel.refreshRepository()
         }
     }

@@ -16,6 +16,9 @@ class FruitListViewModel @Inject constructor(private val repository: Repository)
 
     val fruitList: LiveData<List<DomainFruit>?> = repository.getFruit().asLiveData()
 
+    /*
+    A loading state of LoadingState.Loading will show a progress bar via a binding adapter.
+     */
     private var _loadingState = MutableLiveData<LoadingState>()
     val loadingState: LiveData<LoadingState>
         get() = _loadingState
@@ -24,28 +27,36 @@ class FruitListViewModel @Inject constructor(private val repository: Repository)
         refreshRepository()
     }
 
+    /**
+     * Refreshes the fruit held in the local Room database.
+     */
     fun refreshRepository() {
         viewModelScope.launch {
             repository.refreshFruitData().collect { loadingState ->
+                // Perform a different action depending on the state of the network request.
                 when (loadingState) {
                     is LoadingState.Loading -> {
                         Timber.e("Loading reviews...")
+
                         _loadingState.value = loadingState
                     }
                     is LoadingState.Success -> {
                         Timber.e("Reviews loaded! ${loadingState.dataSize} of them.")
-                        Timber.e(fruitList.value.toString())
+
                         showToastMessage(loadingState.message)
-                        Timber.e(fruitList.value.toString())
+
                         _loadingState.value = loadingState
                     }
                     is LoadingState.Error -> {
                         Timber.e("Error loading reviews: ${loadingState.exception}.")
+
                         showToastMessage(loadingState.message)
+
                         _loadingState.value = loadingState
                     }
                 }
             }
+
         }
     }
 

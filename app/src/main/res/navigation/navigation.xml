@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_fruit_list" >
         <action
             android:id="@+id/action_fruitListFragment_to_fruitDetailFragment"
-            app:destination="@id/fruitDetailFragment" >
+            app:destination="@id/fruitDetailFragment"
+            app:popUpTo="@id/fruitDetailFragment">
             <argument
                 android:name="fruitDetail"
                 app:argType="string[]" />

@@ -48,7 +48,7 @@ class UsageStatsManagerTest {
     @Test
     fun generateLoadEventStats_validValue_getPairOfEventAndTime() = runBlocking {
         // Given valid positive Integer.
-        val milliSeconds = 5000
+        val milliSeconds = 5000L
 
         // When the method is called.
         usageStatsManager.generateLoadEventStats(milliSeconds)
@@ -61,7 +61,7 @@ class UsageStatsManagerTest {
     @Test
     fun generateLoadEventStats_invalidValue_noValuesAddedToPair() = runBlocking {
         // Given invalid negative Integer.
-        val milliSeconds = -5000
+        val milliSeconds = -5000L
 
         // When the method is called.
         usageStatsManager.generateLoadEventStats(milliSeconds)
@@ -74,9 +74,9 @@ class UsageStatsManagerTest {
     @Test
     fun generateDisplayEventStats_startAndStop_getPairOfEventAndPositiveTime() {
         // Call the method twice.
-        usageStatsManager.generateDisplayEventStats()
+        usageStatsManager.startDisplayEventStats()
         sleep(100) // Sleep so that we can generate a positive number on second method call.
-        usageStatsManager.generateDisplayEventStats()
+        usageStatsManager.stopDisplayEventStats()
 
         // Assert that event stats "sent" to queryPair, and the milliseconds are positive.
         assertThat(usageStatsManager.queryPair.first, `is`("display"))
@@ -85,8 +85,31 @@ class UsageStatsManagerTest {
 
     @Test
     fun generateDisplayEventStats_startButNoStop_noValuesAddedToPair() {
-        // Call the method once, which will not end up with the stats being sent.
-        usageStatsManager.generateDisplayEventStats()
+        // Call only startDisplayEventStats(), which will not end up with the stats being sent.
+        usageStatsManager.startDisplayEventStats()
+        sleep(100) // Sleep as a control.
+
+        // Assert that event stats not "sent" to queryPair. This imitates not sending usage stats.
+        assertThat(usageStatsManager.queryPair.first, `is`(nullValue()))
+        assertThat(usageStatsManager.queryPair.second, `is`(nullValue()))
+    }
+
+    @Test
+    fun generateDisplayEventStats_startTwice_noValuesAddedToPair() {
+        // Call startDisplayEventStats() twice, which will not end up with the stats being sent.
+        usageStatsManager.startDisplayEventStats()
+        usageStatsManager.startDisplayEventStats()
+        sleep(100) // Sleep as a control.
+
+        // Assert that event stats not "sent" to queryPair. This imitates not sending usage stats.
+        assertThat(usageStatsManager.queryPair.first, `is`(nullValue()))
+        assertThat(usageStatsManager.queryPair.second, `is`(nullValue()))
+    }
+
+    @Test
+    fun generateDisplayEventStats_stopButNoStart_noValuesAddedToPair() {
+        // Call only startDisplayEventStats(), which will not end up with the stats being sent.
+        usageStatsManager.stopDisplayEventStats()
         sleep(100) // Sleep as a control.
 
         // Assert that event stats not "sent" to queryPair. This imitates not sending usage stats.

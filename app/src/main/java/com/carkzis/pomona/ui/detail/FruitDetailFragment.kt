@@ -5,12 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.carkzis.pomona.R
 import com.carkzis.pomona.databinding.FragmentFruitDetailBinding
 import com.carkzis.pomona.stats.UsageStatsManager
 import com.carkzis.pomona.ui.DomainFruit
+import com.carkzis.pomona.ui.list.FruitListFragmentDirections
 import com.carkzis.pomona.util.getFruitColourFilter
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -39,8 +42,9 @@ class FruitDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Stop the timer now that the View has been created, which will send the stats to the API.
-        UsageStatsManager.generateDisplayEventStats()
+        UsageStatsManager.stopDisplayEventStats()
         setUpFruitDetail(view)
+        setUpOnBackPressed()
     }
 
     /**
@@ -55,10 +59,17 @@ class FruitDetailFragment : Fragment() {
     }
 
     private fun setUpBackgroundColour(view: View, type: String) {
-        val detailsContainerView = view.findViewById<View>(R.id.clayout_fruit_detail)
+        val detailsContainerView = view.findViewById<View>(R.id.fruit_detail_clayout)
         val fruitColourFilter = getFruitColourFilter(type, context!!)
         detailsContainerView.background.colorFilter = fruitColourFilter
     }
 
-
+    private fun setUpOnBackPressed() {
+        requireActivity().onBackPressedDispatcher.addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                UsageStatsManager.startDisplayEventStats()
+                findNavController().popBackStack()
+            }
+        })
+    }
 }
