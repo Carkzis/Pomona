@@ -3,15 +3,20 @@ package com.carkzis.pomona
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.carkzis.pomona.ui.MainActivity
 import com.carkzis.pomona.ui.list.FruitListFragment
 import com.carkzis.pomona.ui.list.FruitListFragmentDirections
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -34,6 +39,23 @@ class AppNavigationTest {
 
     private val dataBindingIdlingResource = DataBindingIdlingResource()
 
+        @Test
+    fun fruitDetailFragment_backButton() = runBlockingTest {
+        // On the contents screen
+        val activityScenario = ActivityScenario.launch(MainActivity::class.java)
+        dataBindingIdlingResource.monitorActivity(activityScenario)
+
+        // Click a listed fruit.
+        onView(withText("Apple"))
+            .perform(click())
+
+        // Click the back button.
+        pressBack()
+
+        // Confirm we end up at the FruitList, by checking that a different fruit is displayed.
+        onView(withText("Banana")).check(matches(isDisplayed()))
+    }
+
     @Test
     fun fruitListFragment_clickOnFruitItem_navigateToFruitDetailFragment() {
         // On the FruitListFragment screen.
@@ -44,19 +66,16 @@ class AppNavigationTest {
         }
 
         // Click a listed fruit.
-        onView(withId(R.id.clayout_fruit_item))
+        onView(withText("Apple"))
             .perform(click())
 
         // Verify that we navigate to the FruitDetail screen.
         verify(navController).navigate(
             FruitListFragmentDirections.actionFruitListFragmentToFruitDetailFragment(
-                arrayOf(
-                    "Ugly Fruit",
-                    "£60.00",
-                    "0.9kg"
-                )
+                Mockito.any<Array<String>>()
             )
         )
     }
+
 
 }

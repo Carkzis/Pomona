@@ -14,9 +14,11 @@
             android:id="@+id/action_fruitListFragment_to_fruitDetailFragment"
             app:destination="@id/fruitDetailFragment"
             app:popUpTo="@id/fruitDetailFragment">
+            <!-- app:nullable should be false in production, true for navigation testing. -->
             <argument
                 android:name="fruitDetail"
-                app:argType="string[]" />
+                app:argType="string[]"
+                app:nullable="true"/>
         </action>
     </fragment>
     <fragment

@@ -60,7 +60,7 @@ class FruitDetailFragment : Fragment() {
 
     private fun setUpBackgroundColour(view: View, type: String) {
         val detailsContainerView = view.findViewById<View>(R.id.fruit_detail_clayout)
-        val fruitColourFilter = getFruitColourFilter(type, context!!)
+        val fruitColourFilter = getFruitColourFilter(type, requireContext())
         detailsContainerView.background.colorFilter = fruitColourFilter
     }
 
