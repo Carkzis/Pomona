@@ -48,7 +48,7 @@ class FruitDetailFragment : Fragment() {
     }
 
     /**
-     * Collects the selected fruit details from SafeArgs, and sends
+     * Collects the selected fruit details from NavArgs, and sends
      * them to the FruitDetailViewModel.
      */
     private fun setUpFruitDetail(view: View) {
@@ -58,18 +58,27 @@ class FruitDetailFragment : Fragment() {
         viewModel.postFruitDetailsToLiveData(currentFruit)
     }
 
+    /**
+     * Sets the background colour an individual fruit ConstraintLayout in the RecyclerView.
+     */
     private fun setUpBackgroundColour(view: View, type: String) {
         val detailsContainerView = view.findViewById<View>(R.id.fruit_detail_clayout)
         val fruitColourFilter = getFruitColourFilter(type, requireContext())
         detailsContainerView.background.colorFilter = fruitColourFilter
     }
 
+    /**
+     * Allows a call to the UsageStatsManager when the user presses the back button,
+     * initiating a timer.
+     */
     private fun setUpOnBackPressed() {
-        requireActivity().onBackPressedDispatcher.addCallback(requireActivity(), object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                UsageStatsManager.startDisplayEventStats()
-                findNavController().popBackStack()
-            }
-        })
+        requireActivity().onBackPressedDispatcher.addCallback(
+            requireActivity(),
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    UsageStatsManager.startDisplayEventStats()
+                    findNavController().popBackStack()
+                }
+            })
     }
 }

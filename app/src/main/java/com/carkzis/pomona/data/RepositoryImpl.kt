@@ -16,6 +16,9 @@ import java.io.IOException
 import java.net.ConnectException
 import kotlin.system.measureTimeMillis
 
+/**
+ * Repository for retrieving and storing fruit information.
+ */
 class RepositoryImpl (private val database: PomonaDatabase): Repository {
 
     /**
@@ -26,8 +29,9 @@ class RepositoryImpl (private val database: PomonaDatabase): Repository {
         // Emit a loading state.
         emit(LoadingState.Loading(R.string.loading))
 
-        var fruitList = FruitContainer(mutableListOf())
+        var fruitList: FruitContainer
 
+        // This measures the time taken for the service call to be completed.
         val timeTaken = measureTimeMillis {
             // Perform a call the the Fruit API.
             fruitList = FruitApi.retroService.getFruitInformation()
@@ -36,11 +40,17 @@ class RepositoryImpl (private val database: PomonaDatabase): Repository {
         // Insert the result into the database as a List of DatabaseFruit.
         database.fruitDao().insertAllFruit(fruitList.asDatabaseModel())
 
+        // Emit the successful result.
         emit(LoadingState.Success(R.string.success, fruitList.fruit.size))
 
+        // Generate service call completion time stats.
         UsageStatsManager.generateLoadEventStats(timeTaken)
 
     }.catch {
+        /*
+         Create an exception in order to generate error stats and emit the exception
+         and error message.
+         */
         val exception = IOException()
         UsageStatsManager.generateErrorEventStats(exception)
         emit(LoadingState.Error(R.string.error, IOException()))

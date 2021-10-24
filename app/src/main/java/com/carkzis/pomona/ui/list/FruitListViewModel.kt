@@ -17,7 +17,7 @@ class FruitListViewModel @Inject constructor(private val repository: Repository)
     val fruitList: LiveData<List<DomainFruit>?> = repository.getFruit().asLiveData()
 
     /*
-    A loading state of LoadingState.Loading will show a progress bar via a binding adapter.
+    A loading state of LoadingState.Loading will make a progress bar visible via a binding adapter.
      */
     private var _loadingState = MutableLiveData<LoadingState>()
     val loadingState: LiveData<LoadingState>
@@ -65,7 +65,7 @@ class FruitListViewModel @Inject constructor(private val repository: Repository)
         get() = _toastText
 
     /**
-     * Add the toast String ID into an Event class and post it to the _toastText LiveData.
+     * Adds the toast String ID into an Event class and posts it to the _toastText LiveData.
      */
     private fun showToastMessage(message: Int) {
         _toastText.value = Event(message)

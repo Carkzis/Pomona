@@ -27,6 +27,7 @@ class FruitListAdapter(private val onClickListener: OnClickListener) :
         return FruitListViewHolder.from(parent)
     }
 
+    // We require a context in order to get a colour filter to be used on individual fruit layouts.
     private lateinit var context: Context
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
@@ -39,6 +40,7 @@ class FruitListAdapter(private val onClickListener: OnClickListener) :
         holder.itemView.setOnClickListener {
             onClickListener.onClick(item)
         }
+        // We set a specific colour to the itemView based on the fruit.
         holder.itemView.findViewById<View>(R.id.clayout_fruit_item).background.colorFilter =
             getFruitColourFilter(item.type, context)
         holder.bind(item)
@@ -61,6 +63,10 @@ class FruitListAdapter(private val onClickListener: OnClickListener) :
         }
     }
 
+    /**
+     * This takes the higher-order function [clickListener], which will
+     * take the user to the FruitDetailFragment when a fruit in the RecyclerView is clicked.
+     */
     class OnClickListener(val clickListener: (fruit: DomainFruit) -> Unit) {
         fun onClick(fruit: DomainFruit) = clickListener(fruit)
     }
@@ -71,7 +77,6 @@ class FruitListDiffCallBack : DiffUtil.ItemCallback<DomainFruit>() {
     override fun areItemsTheSame(oldItem: DomainFruit, newItem: DomainFruit): Boolean {
         return oldItem.type == newItem.type
     }
-
     override fun areContentsTheSame(oldItem: DomainFruit, newItem: DomainFruit): Boolean {
         return oldItem == newItem
     }

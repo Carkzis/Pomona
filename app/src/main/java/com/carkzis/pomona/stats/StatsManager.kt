@@ -1,10 +1,23 @@
 package com.carkzis.pomona.stats
 
+/**
+ * Abstract class containing methods for generating event statistics.
+ * Inherited by UsageStatsManager and FakeUsageStatsManager.
+ */
 abstract class StatsManager {
 
-    var initialTime = 0L
+    var initialTime = 0L // Stores the current time in milliseconds.
+
+    /**
+     * This we generate a network call in UsageStatsManager, or add event and data
+     * details to a Pair in FakeUsageStatsManager.
+     */
     protected abstract fun generateEventStats(event: String, data: String)
 
+    /**
+     * Generates the "load" event stats using the amount of milliseconds [timeMSec] it
+     * took for an event to complete.
+     */
     fun generateLoadEventStats(timeMSec: Long) {
         if (timeMSec < 0) return // There is an error with the time elapsed.
         generateEventStats("load", timeMSec.toString())
@@ -29,6 +42,10 @@ abstract class StatsManager {
         initialTime = 0L
     }
 
+    /**
+     * Generates error event stats using an [exception] as an argument. Posts the formatted
+     * details to [generateEventStats] to be used in the network call.
+     */
     fun generateErrorEventStats(exception: Exception) {
         // Get the formatted exception name.
         val exceptionName = formatExceptionName(exception)
@@ -40,10 +57,14 @@ abstract class StatsManager {
         // Form an event message.
         val eventMessage = "$exceptionName on line $lineNumber in $className"
 
+        // Forwards the formatted details to be used in the network call.
         generateEventStats("error", eventMessage)
     }
 
-    fun formatExceptionName(exception: Exception): String {
+    /**
+     * This ensures that the exception name is in the appropriate format for the network call.
+     */
+    protected fun formatExceptionName(exception: Exception): String {
         // Get the simple name of the exception.
         val exceptionName = exception::class.java.simpleName
         // Split the name up by uppercase letters.
@@ -54,7 +75,10 @@ abstract class StatsManager {
         return splitNameSubList.joinToString(" ").lowercase()
     }
 
-    fun formatClassName(fullClassName: String): String {
+    /**
+     * This ensures that the class name is in the appropriate format for the network call.
+     */
+    protected fun formatClassName(fullClassName: String): String {
         if (fullClassName.isEmpty()) return "unknown"
         // Get the simple class name in lowercase.
         val simpleClassName = fullClassName

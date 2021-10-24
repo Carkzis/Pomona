@@ -2,9 +2,10 @@ package com.carkzis.pomona.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.carkzis.pomona.data.local.DatabaseFruit
-import com.carkzis.pomona.data.local.FruitDao
 
+/**
+ * This database holds the DatabaseFruit entities.
+ */
 @Database(entities = [DatabaseFruit::class], version = 1, exportSchema = false)
 abstract class PomonaDatabase : RoomDatabase() {
 
