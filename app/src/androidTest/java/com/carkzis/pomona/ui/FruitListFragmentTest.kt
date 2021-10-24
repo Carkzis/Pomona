@@ -34,7 +34,10 @@ class FruitListFragmentTest {
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
 
-    // This will clear the database before each test.
+    /*
+    This will clear the database before each test to ensure no fruit are
+    already held in the database.
+     */
     @get:Rule
     var clearDatabaseRule = ClearDatabaseRule()
 

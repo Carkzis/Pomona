@@ -39,7 +39,12 @@ class AppNavigationTest {
 
     private val dataBindingIdlingResource = DataBindingIdlingResource()
 
-        @Test
+    /*
+    Note: these tests assume that fruit data is held in the database, could use dummy
+    data on an emulated database to ensure the data we want is available.
+     */
+
+    @Test
     fun fruitDetailFragment_backButton() = runBlockingTest {
         // On the contents screen
         val activityScenario = ActivityScenario.launch(MainActivity::class.java)
