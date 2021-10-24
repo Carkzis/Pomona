@@ -44,7 +44,9 @@ class FruitListFragmentTest {
     @Inject
     lateinit var repository: Repository
 
+    // This allows Espresso to wait until databinding has updated the view.
     private val dataBindingIdlingResource = DataBindingIdlingResource()
+
     private lateinit var activityScenario: ActivityScenario<MainActivity>
 
     @Before

@@ -24,6 +24,10 @@ class FakeRepository @Inject constructor() : Repository {
     // This decides if the request succeeds or not.
     var failure = false
 
+    /**
+     * This emits different responses using Flow depending on the states
+     * of [loading] and [failure].
+     */
     override suspend fun refreshFruitData() = flow<LoadingState> {
         // Emit a loading state.
         emit(LoadingState.Loading(R.string.loading))
@@ -40,6 +44,9 @@ class FakeRepository @Inject constructor() : Repository {
         emit(LoadingState.Error(R.string.error, Exception()))
     }.flowOn(Dispatchers.IO)
 
+    /**
+     * Emits the [testDatabaseFruit] using Flow to be collected.
+     */
     override fun getFruit() = flow {
         emit(testDatabaseFruit.asDomainModel())
     }

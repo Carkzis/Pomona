@@ -29,7 +29,10 @@ class FruitDaoTest {
     private lateinit var database: PomonaDatabase
 
     @get:Rule
+    // Executes each task synchronously using Architecture Components.
     var instantExecutorRule = InstantTaskExecutorRule()
+
+    // This is from the kotlin docs, and allows access to Dispatcher.Main in testing.
     private val testDispatcher = TestCoroutineDispatcher()
 
     @Before

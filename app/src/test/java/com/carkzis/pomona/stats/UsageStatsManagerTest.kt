@@ -28,7 +28,7 @@ class UsageStatsManagerTest {
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
 
-    // This is from the kotlin docs, to allow access to Dispatcher.Main in testing.
+    // This is from the kotlin docs, and allows access to Dispatcher.Main in testing.
     private val dispatcher = TestCoroutineDispatcher()
 
     // FakeRepository is used for testing.

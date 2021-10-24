@@ -34,7 +34,7 @@ class DatabaseEntitiesTest {
 
     @Test
     fun capitalise_fullName_firstLetterCapitalised() {
-        // Given a single letter String in lowercase.
+        // Given a full String in lowercase.
         val name = "Marc"
 
         // Call the method to capitalise it.
@@ -82,7 +82,7 @@ class DatabaseEntitiesTest {
 
     @Test
     fun convertToPoundsAndPennies_negativePennies_returnErrorMessage() {
-        // Given many pennies.
+        // Given negative pennies (an error).
         val pennies = -1
 
         // Call the method to convert and format to pounds and pennies.
@@ -106,7 +106,7 @@ class DatabaseEntitiesTest {
 
     @Test
     fun convertToKilograms_oneGram_returnOneGramInKilogramsFormat() {
-        // Given one grams.
+        // Given one gram.
         val grams = 1
 
         // Call the method to convert and format to kilograms.
@@ -118,7 +118,7 @@ class DatabaseEntitiesTest {
 
     @Test
     fun convertToKilograms_thousandGrams_returnOneKilogramInCorrectFormat() {
-        // Given one grams.
+        // Given one kilogram.
         val grams = 1000
 
         // Call the method to convert and format to kilograms.
@@ -130,7 +130,7 @@ class DatabaseEntitiesTest {
 
     @Test
     fun convertToKilograms_negativeGrams_returnErrorMessage() {
-        // Given one grams.
+        // Given -1 grams (an error).
         val grams = -1
 
         // Call the method to convert and format to kilograms.

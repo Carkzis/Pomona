@@ -41,15 +41,13 @@ class FruitDetailFragmentTest {
     @Inject
     lateinit var repository: Repository
 
-    private val dataBindingIdlingResource = DataBindingIdlingResource()
-
     @Before
     fun init() {
         hiltRule.inject()
     }
 
     /*
-    Note: we can provide our own arguments, so not internet connection or data held
+    Note: we can provide our own arguments, so no internet connection or data held
     in the database is required.
      */
 

@@ -64,7 +64,7 @@ abstract class StatsManager {
     /**
      * This ensures that the exception name is in the appropriate format for the network call.
      */
-    protected fun formatExceptionName(exception: Exception): String {
+    fun formatExceptionName(exception: Exception): String {
         // Get the simple name of the exception.
         val exceptionName = exception::class.java.simpleName
         // Split the name up by uppercase letters.
@@ -78,7 +78,7 @@ abstract class StatsManager {
     /**
      * This ensures that the class name is in the appropriate format for the network call.
      */
-    protected fun formatClassName(fullClassName: String): String {
+    fun formatClassName(fullClassName: String): String {
         if (fullClassName.isEmpty()) return "unknown"
         // Get the simple class name in lowercase.
         val simpleClassName = fullClassName

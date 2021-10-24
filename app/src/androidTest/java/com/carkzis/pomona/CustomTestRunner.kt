@@ -5,6 +5,10 @@ import android.content.Context
 import androidx.test.runner.AndroidJUnitRunner
 import dagger.hilt.android.testing.HiltTestApplication
 
+/**
+ * This is a custom test runner that sets up instrumented application class for tests,
+ * allowing the use of Hilt.
+ */
 class CustomTestRunner : AndroidJUnitRunner() {
 
     override fun newApplication(
