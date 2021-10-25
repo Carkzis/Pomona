@@ -6,7 +6,6 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.carkzis.pomona.ui.DomainFruit
 import com.carkzis.pomona.ui.list.FruitListAdapter
-import timber.log.Timber
 
 /**
  * Binds fruit list data to the RecyclerView in the FruitListFragment.

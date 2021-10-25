@@ -1,19 +1,16 @@
 package com.carkzis.pomona.ui.list
 
-import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.carkzis.pomona.databinding.FragmentFruitListBinding
 import com.carkzis.pomona.stats.UsageStatsManager
 import com.carkzis.pomona.util.showToast
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class FruitListFragment : Fragment() {

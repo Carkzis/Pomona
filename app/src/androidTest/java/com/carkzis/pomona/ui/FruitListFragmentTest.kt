@@ -2,7 +2,7 @@ package com.carkzis.pomona.ui
 
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -84,6 +84,18 @@ class FruitListFragmentTest {
 
         // Make sure that the progress bar finishes and is no longer displayed.
         BaristaVisibilityAssertions.assertNotDisplayed(R.id.fruit_list_progress_bar)
+    }
+
+    @Test
+    fun fruitListFragment_clickRefresh_noErrorThrowAsVisibleOnScreen() {
+        // Using the FruitListFragment screen, which is the first displayed.
+        activityScenario = ActivityScenario.launch(MainActivity::class.java)
+        dataBindingIdlingResource.monitorActivity(activityScenario)
+
+        // Click the refresh fab.
+        onView(withId(R.id.refresh_fab))
+            .perform(click())
+
     }
 
 }

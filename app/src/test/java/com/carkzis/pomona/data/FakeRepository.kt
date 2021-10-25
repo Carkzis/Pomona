@@ -3,10 +3,8 @@ package com.carkzis.pomona.data
 import com.carkzis.pomona.R
 import com.carkzis.pomona.data.local.DatabaseFruit
 import com.carkzis.pomona.data.local.asDomainModel
-import com.carkzis.pomona.ui.DomainFruit
 import com.carkzis.pomona.util.LoadingState
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn

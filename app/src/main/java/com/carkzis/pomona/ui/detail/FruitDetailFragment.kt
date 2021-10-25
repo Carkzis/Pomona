@@ -1,11 +1,11 @@
 package com.carkzis.pomona.ui.detail
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -13,10 +13,8 @@ import com.carkzis.pomona.R
 import com.carkzis.pomona.databinding.FragmentFruitDetailBinding
 import com.carkzis.pomona.stats.UsageStatsManager
 import com.carkzis.pomona.ui.DomainFruit
-import com.carkzis.pomona.ui.list.FruitListFragmentDirections
 import com.carkzis.pomona.util.getFruitColourFilter
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class FruitDetailFragment : Fragment() {

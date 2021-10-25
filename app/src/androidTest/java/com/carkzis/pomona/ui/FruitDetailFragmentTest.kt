@@ -7,7 +7,6 @@ import androidx.test.espresso.Espresso
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.carkzis.pomona.DataBindingIdlingResource
 import com.carkzis.pomona.R
 import com.carkzis.pomona.data.Repository
 import com.carkzis.pomona.launchFragmentInHiltContainer
