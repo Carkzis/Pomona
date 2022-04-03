@@ -20,9 +20,9 @@ Download a list of delicious fruit to your phone, and see how much they cost and
 # Instructions
 * With a connection to the internet, open up the app.
 * A list of fruit should be downloaded and displayed on the screen.  If there is an error retrieving the data, a toast will display saying "Error performing network call."
-<img src="https://github.com/Carkzis/Pomona/blob/master/pomona_screenshots/main_screen.png?raw=true" width="300" />
 * You can reload the data by clicking the circular blue button in the lower right hand corner of the screen.
 * If you click on an individual fruit in the list, it will take you to a new screen with further details, namely the price in pounds and pence, and the weight in kilograms.
+<img src="https://github.com/Carkzis/Pomona/blob/master/pomona_screenshots/main_screen.png?raw=true" width="300" />
 <img src="https://github.com/Carkzis/Pomona/blob/master/pomona_screenshots/banana.png?raw=true" width="300" />
 
 # Confirmation Exercise Specification Met
