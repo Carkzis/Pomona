@@ -1,6 +1,9 @@
 # Pomona
 Download a list of delicious fruit to your phone, and see how much they cost and weigh!
 
+# Description
+This is an app about fruit, where you download a list of fruit, see a list of fruit, and click on the items of fruit to get more details about the fruit. Fruit! Enjoy.
+
 # Dependencies
 * Android Studio. The version used when creating the app was Android Studio Arctic Fox | 2020.3.1 Patch 2.
 * Android SDK 29 minimum.
@@ -25,7 +28,7 @@ Download a list of delicious fruit to your phone, and see how much they cost and
 <img src="https://github.com/Carkzis/Pomona/blob/master/pomona_screenshots/main_screen.png?raw=true" width="300" />
 <img src="https://github.com/Carkzis/Pomona/blob/master/pomona_screenshots/banana.png?raw=true" width="300" />
 
-# Confirmation Exercise Specification Met
+# Full Details
 * There are two screens (FruitListFragment and FruitDetailFragment) for displaying data about fruit.
 * The first screen (FruitListFragment) displays a list of fruit.
 * When the user selects and item, the application displays a second screen (FruitDetailFragment) containing more information about the fruit.
