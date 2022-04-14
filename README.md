@@ -1,10 +1,10 @@
 # Pomona
 Download a list of delicious fruit to your phone, and see how much they cost and weigh!
 
-# Description
+## Description
 This is an app about fruit, where you download a list of fruit, see a list of fruit, and click on the items of fruit to get more details about the fruit. Fruit! Enjoy.
 
-# Dependencies
+## Dependencies
 * Android Studio. The version used when creating the app was Android Studio Arctic Fox | 2020.3.1 Patch 2.
 * Android SDK 29 minimum.
 * Retrofit as a HTTP client.
@@ -15,12 +15,12 @@ This is an app about fruit, where you download a list of fruit, see a list of fr
 * Mockito for created mock objects for testing.
 * See also app level and project level Gradle builds (build.gradle) for further dependencies.
 
-# Installation Instructions
+## Installation Instructions
 * You can download the code from the Pomona repository by clicking "Code", then "Download ZIP".
 * Open the app using Android Studio.
 * Run either on a connected Android device, or by using an Android Emulator.
 
-# Instructions
+## Instructions
 * With a connection to the internet, open up the app.
 * A list of fruit should be downloaded and displayed on the screen.  If there is an error retrieving the data, a toast will display saying "Error performing network call."
 * You can reload the data by clicking the circular blue button in the lower right hand corner of the screen.
@@ -28,7 +28,7 @@ This is an app about fruit, where you download a list of fruit, see a list of fr
 <img src="https://github.com/Carkzis/Pomona/blob/master/pomona_screenshots/main_screen.png?raw=true" width="300" />
 <img src="https://github.com/Carkzis/Pomona/blob/master/pomona_screenshots/banana.png?raw=true" width="300" />
 
-# Full Details
+## Full Details
 * There are two screens (FruitListFragment and FruitDetailFragment) for displaying data about fruit.
 * The first screen (FruitListFragment) displays a list of fruit.
 * When the user selects and item, the application displays a second screen (FruitDetailFragment) containing more information about the fruit.
@@ -42,6 +42,10 @@ This is an app about fruit, where you download a list of fruit, see a list of fr
 	* For display events, the time taken in ms from when the user initiates a request that would show the screen to the time the screen finishes drawing is appended, along with event=display.  This would be when the user chooses to view more fruit details, and when the user presses the back button to return to the first screen.
 	* For errors such as raised exceptions, the name of the exception, the line number and the class it occured in are appended, along with event=error.  This could be an error with the data obtained (such as non-numerical price and weight data), or a bad network request.
 
-# Acknowledgements
+## Version History
+* 1.0
+  * Initial Release.  See [commits](https://github.com/Carkzis/Pomona/commits/master).
+
+## Acknowledgements
 * The Android Open Source Project for the fantastic amount of information to help coders in an accessible way.
 * Google's Jose Alcerreca for the Event class, which I use in most of my Android projects.
